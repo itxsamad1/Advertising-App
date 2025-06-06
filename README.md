@@ -3,7 +3,7 @@
 A modern web application for managing digital outdoor advertising on SMD screens in Karachi. This platform allows businesses to book advertising slots on strategically placed SMD screens across prime locations in the city.
 
 ## Live Demo
-The application is deployed and running at: [https://advertising-app-kappa.vercel.app](https://advertising-app-kappa.vercel.app)
+The application is deployed and running at: [https://advertising-app-kappa.vercel.app](https://advertising-app-nu.vercel.app/)
 
 ## Features
 
