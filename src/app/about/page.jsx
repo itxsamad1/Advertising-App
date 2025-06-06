@@ -1,26 +1,26 @@
 export default function AboutPage() {
   const stats = [
-    { label: 'Screens Deployed', value: '50+' },
-    { label: 'Cities Covered', value: '5' },
-    { label: 'Daily Viewers', value: '1M+' },
-    { label: 'Happy Clients', value: '200+' }
+    { label: 'Screens Deployed', value: '15+' },
+    { label: 'Locations in Karachi', value: '3' },
+    { label: 'Daily Viewers', value: '500K+' },
+    { label: 'Happy Clients', value: '50+' }
   ];
 
   const team = [
     {
-      name: 'Sarah Johnson',
+      name: 'Person 1',
       role: 'CEO & Founder',
-      bio: 'With over 15 years in digital advertising, Sarah leads our vision for the future of outdoor advertising.'
+      bio: 'Leading the vision and strategy of our digital advertising solutions with extensive experience in the industry.'
     },
     {
-      name: 'Michael Chen',
+      name: 'Person 2',
       role: 'Technical Director',
-      bio: 'Michael ensures our SMD screens are equipped with the latest technology for optimal performance.'
+      bio: 'Managing our technical infrastructure and ensuring optimal performance of our SMD screens across Karachi.'
     },
     {
-      name: 'Emma Williams',
+      name: 'Person 3',
       role: 'Client Success Manager',
-      bio: 'Emma works closely with our clients to ensure their advertising campaigns exceed expectations.'
+      bio: 'Dedicated to ensuring client satisfaction and maximizing the impact of advertising campaigns.'
     }
   ];
 
@@ -33,7 +33,7 @@ export default function AboutPage() {
             About AdScreen
           </h1>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            We're revolutionizing outdoor advertising with cutting-edge SMD screen technology and data-driven insights.
+            Revolutionizing outdoor advertising in Karachi with cutting-edge SMD screen technology and data-driven insights.
           </p>
         </div>
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Vision</h3>
               <p className="text-gray-600">
-                To transform urban advertising landscapes with innovative digital solutions that create meaningful connections between brands and audiences.
+                To transform Karachi's advertising landscape with innovative digital solutions that create meaningful connections between brands and audiences.
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6">
@@ -75,7 +75,7 @@ export default function AboutPage() {
             {team.map((member) => (
               <div key={member.name} className="bg-white rounded-lg shadow-md p-6">
                 <div className="w-20 h-20 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-2xl text-blue-600">{member.name[0]}</span>
+                  <span className="text-2xl text-blue-600">{member.name[7]}</span>
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">{member.name}</h3>
                 <p className="text-blue-600 text-center text-sm mb-4">{member.role}</p>
@@ -89,7 +89,7 @@ export default function AboutPage() {
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-bold text-gray-900">Want to learn more?</h2>
           <p className="mt-4 text-gray-600">
-            We'd love to hear from you and discuss how we can help your business grow.
+            We'd love to hear from you and discuss how we can help your business grow in Karachi.
           </p>
           <button className="mt-6 bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
             Get in Touch

@@ -1,8 +1,13 @@
+'use client';
+import { useState } from 'react';
+
 const PlansSection = () => {
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  
   const plans = [
     {
       name: 'Basic',
-      price: '499',
+      price: '15,000',
       duration: 'per day',
       features: [
         '4 Hours Screen Time',
@@ -16,7 +21,7 @@ const PlansSection = () => {
     },
     {
       name: 'Professional',
-      price: '1,999',
+      price: '75,000',
       duration: 'per week',
       features: [
         '8 Hours Screen Time',
@@ -27,11 +32,11 @@ const PlansSection = () => {
         'Peak Hour Slots'
       ],
       description: 'Ideal for growing businesses and medium-term campaigns',
-      featured: true
+      featured: false
     },
     {
       name: 'Enterprise',
-      price: '5,999',
+      price: '250,000',
       duration: 'per month',
       features: [
         '24/7 Screen Time',
@@ -47,6 +52,12 @@ const PlansSection = () => {
     }
   ];
 
+  const handlePlanSelect = (plan) => {
+    setSelectedPlan(plan);
+    // You can add more functionality here, like opening a modal or redirecting to a checkout page
+    console.log('Selected plan:', plan.name);
+  };
+
   return (
     <div className="bg-gray-50 py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +66,7 @@ const PlansSection = () => {
             Choose Your Advertising Plan
           </h2>
           <p className="mt-4 text-xl text-gray-600">
-            Select the perfect plan that matches your advertising needs
+            Select the perfect plan that matches your advertising needs in Karachi
           </p>
         </div>
 
@@ -63,23 +74,18 @@ const PlansSection = () => {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={'relative p-8 bg-white border ' + 
-                (plan.featured ? 'border-blue-600' : 'border-gray-200') + 
-                ' rounded-2xl shadow-sm flex flex-col'}
+              className={`relative p-8 bg-white border rounded-2xl shadow-sm flex flex-col transition-all duration-300 ${
+                selectedPlan?.name === plan.name
+                  ? 'border-blue-600 transform scale-105'
+                  : 'border-gray-200 hover:border-blue-300'
+              }`}
+              onClick={() => handlePlanSelect(plan)}
             >
-              {plan.featured && (
-                <div className="absolute top-0 p-4 transform -translate-y-1/2">
-                  <span className="inline-flex px-4 py-1 rounded-full text-sm font-semibold tracking-wide uppercase bg-blue-100 text-blue-600">
-                    Most Popular
-                  </span>
-                </div>
-              )}
-
               <div className="mb-6">
                 <h3 className="text-2xl font-semibold text-gray-900">{plan.name}</h3>
                 <p className="mt-2 text-gray-500">{plan.description}</p>
                 <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900">₹{plan.price}</span>
+                  <span className="text-4xl font-extrabold text-gray-900">₨{plan.price}</span>
                   <span className="text-base font-medium text-gray-500">{plan.duration}</span>
                 </p>
               </div>
@@ -108,17 +114,35 @@ const PlansSection = () => {
               </ul>
 
               <button
-                className={'mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium ' +
-                  (plan.featured
+                onClick={() => handlePlanSelect(plan)}
+                className={`mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium transition-colors ${
+                  selectedPlan?.name === plan.name
                     ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-blue-50 text-blue-600 hover:bg-blue-100')
-                }
+                    : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                }`}
               >
-                Select {plan.name} Plan
+                {selectedPlan?.name === plan.name ? 'Selected' : `Select ${plan.name} Plan`}
               </button>
             </div>
           ))}
         </div>
+
+        {selectedPlan && (
+          <div className="mt-12 text-center">
+            <p className="text-lg text-gray-600 mb-4">
+              You've selected the <span className="font-semibold">{selectedPlan.name}</span> plan
+            </p>
+            <button
+              onClick={() => {
+                // Add checkout or contact functionality
+                console.log('Proceeding with plan:', selectedPlan.name);
+              }}
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+            >
+              Proceed with {selectedPlan.name} Plan
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

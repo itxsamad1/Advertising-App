@@ -4,35 +4,30 @@ import { useState } from 'react';
 const locations = [
   {
     id: 1,
-    name: 'City Center Mall',
-    address: '123 Main Street',
-    screenSize: '10m x 6m',
-    traffic: 'High',
-    type: 'Shopping Mall'
+    name: 'I.I Chundrigar Road',
+    address: 'I.I Chundrigar Road, Karachi',
+    screenSize: '12m x 8m',
+    traffic: 'Very High',
+    type: 'Business District',
+    description: 'Located in the heart of Karachi\'s financial district, this screen captures the attention of business professionals and corporate audience.'
   },
   {
     id: 2,
-    name: 'Central Station',
-    address: '456 Transit Ave',
-    screenSize: '8m x 4m',
+    name: 'Shahrah-e-Faisal',
+    address: 'Fouzia Wahab Flyover, Shahrah-e-Faisal, Karachi',
+    screenSize: '15m x 10m',
     traffic: 'Very High',
-    type: 'Transport Hub'
+    type: 'Main Highway',
+    description: 'Prime location on Karachi\'s busiest highway, offering maximum visibility to commuters and travelers.'
   },
   {
     id: 3,
-    name: 'Business District',
-    address: '789 Corporate Blvd',
-    screenSize: '12m x 8m',
+    name: 'University Road',
+    address: 'University Road, Karachi',
+    screenSize: '10m x 6m',
     traffic: 'High',
-    type: 'Business Area'
-  },
-  {
-    id: 4,
-    name: 'Sports Complex',
-    address: '321 Stadium Road',
-    screenSize: '15m x 10m',
-    traffic: 'Medium-High',
-    type: 'Entertainment'
+    type: 'Educational & Commercial',
+    description: 'Strategic placement near educational institutions and commercial areas, targeting young professionals and students.'
   }
 ];
 
@@ -44,10 +39,10 @@ export default function LocationsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-gray-900 sm:text-5xl lg:text-6xl">
-            Our Screen Locations
+            Our Screen Locations in Karachi
           </h1>
           <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover our strategically placed SMD screens across the city. Each location is carefully selected to maximize your advertisement's visibility.
+            Discover our strategically placed SMD screens across Karachi. Each location is carefully selected to maximize your advertisement's visibility.
           </p>
         </div>
 
@@ -55,8 +50,8 @@ export default function LocationsPage() {
           {/* Map Placeholder */}
           <div className="bg-gray-100 rounded-lg p-6 min-h-[400px] flex items-center justify-center">
             <div className="text-center">
-              <p className="text-gray-500 mb-2">Interactive Map Coming Soon</p>
-              <p className="text-sm text-gray-400">We're working on an interactive map to help you better visualize our screen locations.</p>
+              <p className="text-gray-500 mb-2">Karachi City Map</p>
+              <p className="text-sm text-gray-400">Interactive map showing our premium SMD screen locations across Karachi.</p>
             </div>
           </div>
 
@@ -74,6 +69,7 @@ export default function LocationsPage() {
                   <p className="text-gray-600"><span className="font-medium">Screen Size:</span> {location.screenSize}</p>
                   <p className="text-gray-600"><span className="font-medium">Traffic:</span> {location.traffic}</p>
                   <p className="text-gray-600"><span className="font-medium">Type:</span> {location.type}</p>
+                  <p className="text-gray-600 mt-2">{location.description}</p>
                 </div>
                 <button className="mt-4 text-blue-600 hover:text-blue-700 font-medium">
                   View Details →
@@ -87,7 +83,7 @@ export default function LocationsPage() {
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-bold text-gray-900">Want to know more about our locations?</h2>
           <p className="mt-4 text-gray-600">
-            Our team is here to help you choose the perfect location for your advertisement.
+            Our team is here to help you choose the perfect location for your advertisement in Karachi.
           </p>
           <button className="mt-6 bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 transition-colors">
             Contact Us
