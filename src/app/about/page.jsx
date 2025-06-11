@@ -1,9 +1,9 @@
 export default function AboutPage() {
   const stats = [
-    { label: 'Screens Deployed', value: '15+' },
+    { label: 'Screens Deployed', value: '30+' },
     { label: 'Locations in Karachi', value: '3' },
     { label: 'Daily Viewers', value: '500K+' },
-    { label: 'Happy Clients', value: '50+' }
+    { label: 'Happy Clients', value: '15+' }
   ];
 
   const team = [

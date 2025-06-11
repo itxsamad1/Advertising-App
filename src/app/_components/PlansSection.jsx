@@ -1,148 +1,185 @@
 'use client';
 import { useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const plans = [
+  {
+    name: 'Weekly',
+    price: '625,000',
+    duration: 'Per Week',
+    features: [
+      'Ad Video Duration: 15 seconds',
+      'Screen Size: 3ft x 6ft',
+      'High-Traffic Location',
+      'Premium Visibility',
+      '30+ Screens Network',
+      '24/7 Display Time'
+    ]
+  },
+  {
+    name: 'Fortnight',
+    price: '1,250,000',
+    duration: 'Fifteen Days',
+    features: [
+      'Ad Video Duration: 15 seconds',
+      'Screen Size: 3ft x 6ft',
+      'High-Traffic Location',
+      'Premium Visibility',
+      '30+ Screens Network',
+      '24/7 Display Time',
+      'Extended Campaign Duration'
+    ]
+  },
+  {
+    name: 'Monthly',
+    price: '2,500,000',
+    duration: 'Per Month',
+    popular: true,
+    features: [
+      'Ad Video Duration: 15 seconds',
+      'Screen Size: 3ft x 6ft',
+      'High-Traffic Location',
+      'Premium Visibility',
+      '30+ Screens Network',
+      '24/7 Display Time',
+      'Maximum Campaign Impact',
+      'Best Value for Money'
+    ]
+  }
+];
 
 const PlansSection = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
-  
-  const plans = [
-    {
-      name: 'Basic',
-      price: '15,000',
-      duration: 'per day',
-      features: [
-        '4 Hours Screen Time',
-        'Single Location',
-        'Basic Analytics',
-        'Standard Support',
-        'Ad Design Consultation'
-      ],
-      description: 'Perfect for small businesses and short campaigns',
-      featured: false
-    },
-    {
-      name: 'Professional',
-      price: '75,000',
-      duration: 'per week',
-      features: [
-        '8 Hours Screen Time',
-        'Multiple Locations',
-        'Advanced Analytics',
-        'Priority Support',
-        'Professional Ad Design',
-        'Peak Hour Slots'
-      ],
-      description: 'Ideal for growing businesses and medium-term campaigns',
-      featured: false
-    },
-    {
-      name: 'Enterprise',
-      price: '250,000',
-      duration: 'per month',
-      features: [
-        '24/7 Screen Time',
-        'All Premium Locations',
-        'Real-time Analytics',
-        'Dedicated Support',
-        'Custom Ad Design Team',
-        'Premium Slots Guaranteed',
-        'Multi-screen Synchronization'
-      ],
-      description: 'Best for large businesses and long-term advertising',
-      featured: false
-    }
-  ];
-
-  const handlePlanSelect = (plan) => {
-    setSelectedPlan(plan);
-    // You can add more functionality here, like opening a modal or redirecting to a checkout page
-    console.log('Selected plan:', plan.name);
-  };
+  const [hoveredPlan, setHoveredPlan] = useState(null);
 
   return (
-    <div className="bg-gray-50 py-12 sm:py-16 lg:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl lg:text-4xl">
-            Choose Your Advertising Plan
-          </h2>
-          <p className="mt-4 text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
-            Select the perfect plan that matches your advertising needs in Karachi
+    <div className="py-16 bg-gradient-to-b from-white to-blue-50">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Pricing Plans</h2>
+          <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">
+            Choose Your Perfect Plan
           </p>
-        </div>
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+            Select the perfect advertising duration for your campaign. All plans include premium visibility on our network of 30+ strategically placed SMD screens.
+          </p>
+        </motion.div>
 
-        <div className="mt-8 sm:mt-12 md:mt-16 space-y-8 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-6">
-          {plans.map((plan) => (
-            <div
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {plans.map((plan, index) => (
+            <motion.div
               key={plan.name}
-              className={`relative p-6 sm:p-8 bg-white border rounded-2xl shadow-sm flex flex-col transition-all duration-300 ${
-                selectedPlan?.name === plan.name
-                  ? 'border-blue-600 transform scale-[1.02]'
-                  : 'border-gray-200 hover:border-blue-300'
-              }`}
-              onClick={() => handlePlanSelect(plan)}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="mb-4 sm:mb-6">
-                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900">{plan.name}</h3>
-                <p className="mt-2 text-sm sm:text-base text-gray-500">{plan.description}</p>
-                <p className="mt-6 sm:mt-8 flex items-baseline text-gray-900">
-                  <span className="text-3xl sm:text-4xl font-extrabold">₨{plan.price}</span>
-                  <span className="ml-2 text-sm sm:text-base font-medium text-gray-500">{plan.duration}</span>
-                </p>
-              </div>
-
-              <ul className="mt-4 sm:mt-6 space-y-3 sm:space-y-4 flex-1">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <svg
-                        className="h-5 w-5 sm:h-6 sm:w-6 text-green-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
-                      </svg>
-                    </div>
-                    <p className="ml-2 sm:ml-3 text-sm sm:text-base text-gray-700">{feature}</p>
-                  </li>
-                ))}
-              </ul>
-
-              <button
-                onClick={() => handlePlanSelect(plan)}
-                className={`mt-6 sm:mt-8 block w-full py-2 sm:py-3 px-4 sm:px-6 border border-transparent rounded-md text-center text-sm sm:text-base font-medium transition-colors ${
-                  selectedPlan?.name === plan.name
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+              <motion.div
+                className={`rounded-2xl shadow-lg bg-white p-8 relative cursor-pointer transition-all duration-300 ${
+                  selectedPlan === plan.name ? 'ring-2 ring-blue-600 transform scale-105' : ''
                 }`}
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+                }}
+                onClick={() => setSelectedPlan(plan.name)}
+                onHoverStart={() => setHoveredPlan(plan.name)}
+                onHoverEnd={() => setHoveredPlan(null)}
               >
-                {selectedPlan?.name === plan.name ? 'Selected' : `Select ${plan.name} Plan`}
-              </button>
-            </div>
+                {plan.popular && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute -top-4 right-8"
+                  >
+                    <span className="inline-flex items-center px-4 py-1 rounded-full text-sm font-semibold bg-blue-600 text-white">
+                      Most Popular
+                    </span>
+                  </motion.div>
+                )}
+                <div>
+                  <h3 className="text-2xl font-semibold text-gray-900">{plan.name}</h3>
+                  <p className="mt-4 text-gray-500">{plan.duration}</p>
+                  <p className="mt-8">
+                    <span className="text-4xl font-extrabold text-gray-900">PKR {plan.price}</span>
+                  </p>
+
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Link
+                      href={`/signup?plan=${plan.name}`}
+                      className={`mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium ${
+                        selectedPlan === plan.name || hoveredPlan === plan.name
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                      } transition-colors duration-200`}
+                    >
+                      {selectedPlan === plan.name ? 'Selected Plan' : 'Get Started'}
+                    </Link>
+                  </motion.div>
+
+                  <div className="mt-8">
+                    <h4 className="text-sm font-semibold text-gray-900 tracking-wide uppercase">
+                      What's included
+                    </h4>
+                    <ul className="mt-4 space-y-4">
+                      {plan.features.map((feature, index) => (
+                        <motion.li
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-start"
+                        >
+                          <div className="flex-shrink-0">
+                            <svg
+                              className="h-6 w-6 text-green-500"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                          </div>
+                          <p className="ml-3 text-base text-gray-500">{feature}</p>
+                        </motion.li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
-        {selectedPlan && (
-          <div className="mt-8 sm:mt-12 text-center">
-            <p className="text-base sm:text-lg text-gray-600 mb-4">
-              You've selected the <span className="font-semibold">{selectedPlan.name}</span> plan
-            </p>
-            <button
-              onClick={() => {
-                // Add checkout or contact functionality
-                console.log('Proceeding with plan:', selectedPlan.name);
-              }}
-              className="inline-flex items-center px-6 py-2 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
-            >
-              Proceed with {selectedPlan.name} Plan
-            </button>
-          </div>
-        )}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-lg text-gray-500">
+            Need a custom plan?{' '}
+            <Link href="/contact" className="text-blue-600 font-medium hover:text-blue-500">
+              Contact us
+            </Link>
+          </p>
+        </motion.div>
       </div>
     </div>
   );

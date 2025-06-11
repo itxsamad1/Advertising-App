@@ -1,102 +1,84 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const locations = [
   {
     id: 1,
-    name: 'I.I Chundrigar Road',
-    address: 'I.I Chundrigar Road, Karachi',
-    screenSize: '12m x 8m',
-    traffic: 'Very High',
-    type: 'Business District',
-    description: 'Located in the heart of Karachi\'s financial district, this screen captures the attention of business professionals and corporate audience.'
-  },
-  {
-    id: 2,
     name: 'Shahrah-e-Faisal',
-    address: 'Fouzia Wahab Flyover, Shahrah-e-Faisal, Karachi',
-    screenSize: '15m x 10m',
+    address: 'Aisha Bawany Academy to SUIT, Shahrah-e-Faisal, Karachi',
+    screenSize: '3ft x 6ft',
     traffic: 'Very High',
     type: 'Main Highway',
-    description: 'Prime location on Karachi\'s busiest highway, offering maximum visibility to commuters and travelers.'
-  },
-  {
-    id: 3,
-    name: 'University Road',
-    address: 'University Road, Karachi',
-    screenSize: '10m x 6m',
-    traffic: 'High',
-    type: 'Educational & Commercial',
-    description: 'Strategic placement near educational institutions and commercial areas, targeting young professionals and students.'
+    description: 'Prime location on Karachi\'s busiest highway, strategically positioned between Aisha Bawany Academy and SUIT on Shahrah-e-Faisal. This premium spot ensures maximum visibility to a diverse flow of traffic throughout the day.',
+    image: '/shahrah-e-faisal.jpg'
   }
 ];
 
 export default function LocationsPage() {
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation] = useState(locations[0]);
 
   return (
-    <div className="pt-16">
+    <div className="pt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-        <div className="text-center mb-8 sm:mb-12">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 lg:text-5xl">
-            Our Screen Locations in Karachi
+        <div className="text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
+            Our Premium Screen Location
           </h1>
-          <p className="mt-4 text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover our strategically placed SMD screens across Karachi. Each location is carefully selected to maximize your advertisement's visibility.
+          <p className="mt-4 text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+            Discover our strategically placed SMD screen at one of Karachi's most prominent locations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
-          {/* Map Placeholder */}
-          <div className="bg-gray-100 rounded-lg p-4 sm:p-6 min-h-[300px] sm:min-h-[400px] flex items-center justify-center order-2 lg:order-1">
-            <div className="text-center">
-              <p className="text-gray-500 mb-2 text-base sm:text-lg">Karachi City Map</p>
-              <p className="text-xs sm:text-sm text-gray-400">Interactive map showing our premium SMD screen locations across Karachi.</p>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* Location Image */}
+          <div className="relative h-[400px] rounded-xl overflow-hidden shadow-lg">
+            <Image
+              src={selectedLocation.image}
+              alt={selectedLocation.name}
+              fill
+              style={{ objectFit: 'cover' }}
+              className="transition-transform hover:scale-105 duration-300"
+            />
           </div>
 
-          {/* Locations List */}
-          <div className="space-y-4 order-1 lg:order-2">
-            {locations.map((location) => (
-              <div
-                key={location.id}
-                className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => setSelectedLocation(location)}
-              >
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900">{location.name}</h3>
-                <div className="mt-2 space-y-2">
-                  <p className="text-sm sm:text-base text-gray-600">
-                    <span className="font-medium">Address:</span> {location.address}
-                  </p>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    <span className="font-medium">Screen Size:</span> {location.screenSize}
-                  </p>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    <span className="font-medium">Traffic:</span> {location.traffic}
-                  </p>
-                  <p className="text-sm sm:text-base text-gray-600">
-                    <span className="font-medium">Type:</span> {location.type}
-                  </p>
-                  <p className="text-sm sm:text-base text-gray-600 mt-2">{location.description}</p>
-                </div>
-                <button className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-sm sm:text-base flex items-center">
-                  View Details
-                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+          {/* Location Details */}
+          <div className="bg-white rounded-xl shadow-lg p-6 lg:p-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">
+              {selectedLocation.name}
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Location</h3>
+                <p className="text-gray-600 mt-1">{selectedLocation.address}</p>
               </div>
-            ))}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Screen Specifications</h3>
+                <p className="text-gray-600 mt-1">Size: {selectedLocation.screenSize}</p>
+                <p className="text-gray-600">Traffic Density: {selectedLocation.traffic}</p>
+                <p className="text-gray-600">Area Type: {selectedLocation.type}</p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Overview</h3>
+                <p className="text-gray-600 mt-1">{selectedLocation.description}</p>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-lg hover:opacity-90 transition duration-200 text-lg font-medium">
+                Book This Location
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Contact Section */}
-        <div className="mt-12 sm:mt-16 text-center">
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Want to know more about our locations?</h2>
-          <p className="mt-4 text-sm sm:text-base text-gray-600">
-            Our team is here to help you choose the perfect location for your advertisement in Karachi.
+        <div className="mt-16 text-center bg-blue-50 rounded-xl p-8 shadow-sm">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Want to know more?</h2>
+          <p className="mt-4 text-lg text-gray-600">
+            Our team is here to help you get the most out of your advertisement campaign.
           </p>
-          <button className="mt-6 bg-blue-600 text-white px-6 sm:px-8 py-2 sm:py-3 text-sm sm:text-base rounded-md hover:bg-blue-700 transition-colors">
+          <button className="mt-6 bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 text-lg rounded-lg hover:opacity-90 transition duration-200">
             Contact Us
           </button>
         </div>
