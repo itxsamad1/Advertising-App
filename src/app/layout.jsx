@@ -1,26 +1,27 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Providers } from './providers';
 import Navbar from './_components/Navbar';
 import Footer from './_components/Footer';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'M Tech - Innovative Technology Solutions',
-  description: 'Experience cutting-edge technology solutions with M Tech. Leading the future of digital innovation.',
+  title: 'AdScreen - Premium SMD Advertising Solutions',
+  description: 'Digital outdoor advertising solutions with strategically placed SMD screens across Karachi.',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col min-h-screen">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300`}>
+        <Providers>
           <Navbar />
           <main className="flex-grow">
             {children}
           </main>
           <Footer />
-        </div>
+        </Providers>
       </body>
     </html>
   );
