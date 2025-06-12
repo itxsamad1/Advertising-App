@@ -47,27 +47,21 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg dark:shadow-blue-900/20' 
-        : 'bg-blue-900/90 dark:bg-gray-900/90 backdrop-blur-md'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
-          <div className="flex-shrink-0 flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-2 group">
-              <Image
-                src="/logo without text.png"
-                alt="M Tech Logo"
-                width={40}
-                height={40}
-                className="w-10 h-10 object-contain transform transition-transform group-hover:scale-110"
-              />
-              <span className={`text-2xl font-bold ${isScrolled ? 'bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent' : 'text-white'}`}>
-                M Tech
-              </span>
-            </Link>
-          </div>
+    <header className="fixed w-full z-50 transition-all duration-300">
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <Image 
+              src="/logo without text.png" 
+              alt="M Tech Solutions Logo" 
+              width={40} 
+              height={40}
+              className="w-10 h-10"
+            />
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
+              M Tech Solutions
+            </span>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-6">
@@ -116,7 +110,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu - Side Drawer */}
       <div 
@@ -130,13 +124,13 @@ const Navbar = () => {
               <div className="flex items-center space-x-2">
                 <Image
                   src="/logo without text.png"
-                  alt="M Tech Logo"
+                  alt="M Tech Solutions Logo"
                   width={32}
                   height={32}
                   className="w-8 h-8 object-contain"
                 />
                 <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
-                  M Tech
+                  M Tech Solutions
                 </span>
               </div>
               <button
@@ -207,7 +201,7 @@ const Navbar = () => {
           onClick={() => setIsMenuOpen(false)}
         ></div>
       )}
-    </nav>
+    </header>
   );
 };
 
