@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function AboutPage() {
   const stats = [
     { label: 'Screens Deployed', value: '30+' },
@@ -91,9 +93,12 @@ export default function AboutPage() {
           <p className="mt-4 text-gray-600 dark:text-gray-300">
             We'd love to hear from you and discuss how we can help your business grow in Karachi.
           </p>
-          <button className="mt-6 bg-blue-600 dark:bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg">
+          <Link 
+            href="/contact"
+            className="mt-6 inline-block bg-blue-600 dark:bg-blue-500 text-white px-8 py-3 rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+          >
             Get in Touch
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,141 +1,150 @@
 'use client';
-import { useState } from 'react';
 import Link from 'next/link';
-import GoogleIcon from '../_components/GoogleIcon';
+import Image from 'next/image';
+import { useState } from 'react';
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Sign up with:', formData);
-  };
-
-  const handleGoogleSignUp = () => {
-    // Handle Google sign up
-    console.log('Sign up with Google');
+    // Handle sign up logic here
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-blue-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Create your account</h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
-            <Link href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
-              sign in to your account
-            </Link>
-          </p>
-        </div>
-
-        <button
-          onClick={handleGoogleSignUp}
-          className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
-        >
-          <GoogleIcon />
-          <span className="ml-3">Continue with Google</span>
-        </button>
-
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300"></div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-950 dark:to-gray-900 pt-24 pb-12">
+      <div className="max-w-md mx-auto px-4 sm:px-6 py-12">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              Create your account
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Already have an account?{' '}
+              <Link href="/signin" className="text-blue-600 dark:text-blue-400 hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">Or continue with</span>
-          </div>
-        </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
+          <button
+            className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 mb-6"
+          >
+            <Image
+              src="/images/google.svg"
+              alt="Google"
+              width={20}
+              height={20}
+              className="w-5 h-5"
+            />
+            Continue with Google
+          </button>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="name" className="sr-only">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                 Full name
               </label>
               <input
                 id="name"
-                name="name"
                 type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                placeholder="Enter your full name"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Full name"
-                value={formData.name}
-                onChange={handleChange}
               />
             </div>
+
             <div>
-              <label htmlFor="email" className="sr-only">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                 Email address
               </label>
               <input
                 id="email"
-                name="email"
                 type="email"
-                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                placeholder="Enter your email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
               />
             </div>
+
             <div>
-              <label htmlFor="password" className="sr-only">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                 Password
               </label>
               <input
                 id="password"
-                name="password"
                 type="password"
-                autoComplete="new-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                placeholder="Create a password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
               />
             </div>
+
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
                 Confirm password
               </label>
               <input
-                id="confirmPassword"
-                name="confirmPassword"
+                id="confirm-password"
                 type="password"
-                autoComplete="new-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
+                placeholder="Confirm your password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-lg focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Confirm password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
               />
             </div>
-          </div>
 
-          <div>
+            <div className="flex items-center">
+              <input
+                id="agree-terms"
+                type="checkbox"
+                checked={agreeToTerms}
+                onChange={(e) => setAgreeToTerms(e.target.checked)}
+                className="h-4 w-4 text-blue-600 dark:text-blue-400 focus:ring-blue-500 dark:focus:ring-blue-400 border-gray-300 dark:border-gray-600 rounded"
+                required
+              />
+              <label htmlFor="agree-terms" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                I agree to the{' '}
+                <Link href="/terms" className="text-blue-600 dark:text-blue-400 hover:underline">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" className="text-blue-600 dark:text-blue-400 hover:underline">
+                  Privacy Policy
+                </Link>
+              </label>
+            </div>
+
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+              className="w-full bg-blue-600 dark:bg-blue-500 text-white rounded-lg px-4 py-3 font-medium hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2 transition-colors duration-200"
             >
-              Sign up
+              Create account
             </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );

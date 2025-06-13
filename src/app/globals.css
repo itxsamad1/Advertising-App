@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add blinking cursor animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -55,5 +65,28 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (hover: hover) {
+  .plan-card-hover {
+    @apply hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] hover:border-blue-600 dark:hover:border-blue-400;
+  }
+  
+  .plan-card-hover .get-started-btn {
+    @apply hover:shadow-lg group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-800 
+    group-hover:dark:from-blue-500 group-hover:dark:to-blue-700 
+    group-hover:text-white;
+  }
+}
+
+/* Mobile touch styles */
+@media (hover: none) {
+  .plan-card-hover {
+    @apply active:scale-[0.98] transition-transform;
+  }
+  
+  .plan-card-hover .get-started-btn {
+    @apply active:scale-95 active:opacity-90;
   }
 } 

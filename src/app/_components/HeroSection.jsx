@@ -78,7 +78,7 @@ const HeroSection = () => {
               </motion.div>
               <div className="relative w-full h-[calc(100%-6rem)] mt-4">
                 <Image
-                  src="/screen img.png"
+                  src="/images/screen img-optimized.webp"
                   alt="SMD Screen"
                   fill
                   priority

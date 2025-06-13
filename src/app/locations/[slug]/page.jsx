@@ -11,7 +11,7 @@ const locations = {
     traffic: 'Very High',
     type: 'Main Highway',
     description: 'Prime location on Karachi\'s busiest highway, strategically positioned between Aisha Bawany Academy and SUIT on Shahrah-e-Faisal. This premium spot ensures maximum visibility to a diverse flow of traffic throughout the day.',
-    image: '/shahrah-e-faisal.jpg'
+    image: '/images/shahrah-e-faisal-optimized.webp'
   }
 };
 

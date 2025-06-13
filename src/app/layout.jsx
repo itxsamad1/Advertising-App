@@ -14,11 +14,17 @@ export const viewport = {
 };
 
 export const metadata = {
-  title: {
-    template: '%s | M Tech Solutions',
-    default: 'M Tech Solutions - Digital Advertising Solutions in Pakistan',
+  title: 'M Tech Solutions - Premium SMD Screen Advertising',
+  description: 'Transform your brand with premium SMD screen advertising solutions in prime locations across Karachi.',
+  icons: {
+    icon: '/images/favicon.png',
+    shortcut: '/images/favicon.png',
+    apple: '/images/favicon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/images/favicon.png',
+    },
   },
-  description: 'M Tech Solutions offers premium digital advertising services through our network of 30+ strategically placed SMD screens across Pakistan. Transform your brand visibility with our high-impact advertising solutions.',
   keywords: [
     'Digital Advertising',
     'SMD Screens',
@@ -36,27 +42,6 @@ export const metadata = {
     'Strategic Advertising Locations',
     'Brand Visibility Solutions'
   ],
-  icons: {
-    icon: [
-      {
-        url: '/favicon.ico',
-        sizes: 'any',
-      },
-      {
-        url: '/icon.png',
-        type: 'image/png',
-        sizes: '32x32',
-      },
-    ],
-    apple: [
-      {
-        url: '/apple-icon.png',
-        sizes: '180x180',
-        type: 'image/png',
-      },
-    ],
-    shortcut: '/favicon.ico',
-  },
   manifest: '/manifest.json',
   authors: [{ name: 'M Tech Solutions' }],
   creator: 'M Tech Solutions',

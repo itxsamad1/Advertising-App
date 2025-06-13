@@ -1,32 +1,23 @@
 'use client';
 
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 
-export default function ThemeToggle() {
-  const [mounted, setMounted] = useState(false);
+const ThemeToggle = ({ isHome, isScrolled }) => {
   const { theme, setTheme } = useTheme();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <motion.button
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.9 }}
+    <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 transition-colors duration-200"
+      className={`${
+        !isScrolled && isHome
+          ? 'text-white hover:bg-white/10'
+          : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800'
+      } p-2 rounded-lg transition-all duration-200`}
       aria-label="Toggle theme"
     >
       {theme === 'dark' ? (
         <svg
-          className="w-5 h-5 text-yellow-500"
+          className="w-5 h-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -40,7 +31,7 @@ export default function ThemeToggle() {
         </svg>
       ) : (
         <svg
-          className="w-5 h-5 text-gray-700"
+          className="w-5 h-5"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -53,6 +44,8 @@ export default function ThemeToggle() {
           />
         </svg>
       )}
-    </motion.button>
+    </button>
   );
-} 
+};
+
+export default ThemeToggle; 

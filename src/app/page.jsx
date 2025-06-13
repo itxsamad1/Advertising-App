@@ -45,7 +45,7 @@ export default function Home() {
                   <h2 className="text-3xl font-bold text-center mb-2 text-gray-900 dark:text-white">SMD Screen</h2>
                   <p className="text-center text-gray-600 dark:text-gray-400 mb-6">(Surface Mount Device Screen)</p>
                   <Image
-                    src="/screen-optimized.webp"
+                    src="/images/screen-optimized.webp"
                     alt="SMD Screen Display"
                     width={600}
                     height={400}
@@ -124,175 +124,236 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {/* Weekly Plan */}
-            <div className="relative rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02]">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Weekly</h2>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">Per Week</p>
-              <p className="mt-8 mb-8">
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span><br />
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">625,000</span>
-              </p>
-              <Link
-                href="/signup"
-                className="block w-full py-3 px-6 rounded-lg text-center font-medium mb-8
-                  bg-blue-50 hover:bg-blue-600 dark:bg-blue-900/50 
-                  text-blue-600 hover:text-white dark:text-blue-400 dark:hover:text-white
-                  transition-all duration-300 transform hover:scale-105
-                  hover:shadow-lg"
-              >
-                Get Started
-              </Link>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="relative rounded-2xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98]">
+              <div className="p-8">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Weekly</h2>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">Per Week</p>
+                <p className="mt-8 flex flex-wrap items-baseline gap-x-3">
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span>
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">625,000</span>
+                </p>
+                <Link
+                  href="/signup"
+                  className="mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 
+                    bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 
+                    group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-800 
+                    group-hover:dark:from-blue-500 group-hover:dark:to-blue-700 
+                    group-hover:text-white hover:shadow-lg active:scale-95"
+                >
+                  Get Started
+                </Link>
+              </div>
+              <div className="px-8 pb-8">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wide uppercase mb-4">
                   WHAT'S INCLUDED
                 </h3>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">High-Traffic Location</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">High-Traffic Location</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Premium Visibility</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Premium Visibility</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">30+ Screens Network</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">30+ Screens Network</p>
                   </li>
                 </ul>
               </div>
             </div>
 
             {/* Fortnight Plan */}
-            <div className="relative rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02]">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Fortnight</h2>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">Fifteen Days</p>
-              <p className="mt-8 mb-8">
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span><br />
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">1,250,000</span>
-              </p>
-              <Link
-                href="/signup"
-                className="block w-full py-3 px-6 rounded-lg text-center font-medium mb-8
-                  bg-blue-50 hover:bg-blue-600 dark:bg-blue-900/50 
-                  text-blue-600 hover:text-white dark:text-blue-400 dark:hover:text-white
-                  transition-all duration-300 transform hover:scale-105
-                  hover:shadow-lg"
-              >
-                Get Started
-              </Link>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <div className="relative rounded-2xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98]">
+              <div className="p-8">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Fortnight</h2>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">Fifteen Days</p>
+                <p className="mt-8 flex flex-wrap items-baseline gap-x-3">
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span>
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">1,250,000</span>
+                </p>
+                <Link
+                  href="/signup"
+                  className="mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 
+                    bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 
+                    group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-800 
+                    group-hover:dark:from-blue-500 group-hover:dark:to-blue-700 
+                    group-hover:text-white hover:shadow-lg active:scale-95"
+                >
+                  Get Started
+                </Link>
+              </div>
+              <div className="px-8 pb-8">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wide uppercase mb-4">
                   WHAT'S INCLUDED
                 </h3>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">High-Traffic Location</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">High-Traffic Location</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Premium Visibility</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Premium Visibility</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">30+ Screens Network</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">30+ Screens Network</p>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Extended Campaign Duration</p>
                   </li>
                 </ul>
               </div>
             </div>
 
             {/* Monthly Plan */}
-            <div className="relative rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02]">
-              <div className="absolute top-0 right-0 mt-4 mr-4">
-                <span className="inline-flex items-center px-4 py-1 rounded-full text-sm font-semibold bg-blue-600 dark:bg-blue-500 text-white shadow-lg">
-                  Most Popular
-                </span>
+            <div className="relative rounded-2xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98] border-2 border-transparent hover:border-blue-600 dark:hover:border-blue-400">
+              <div className="p-8">
+                <div className="absolute top-0 right-0 mt-6 mr-8">
+                  <span className="inline-flex items-center px-4 py-1 rounded-full text-sm font-semibold bg-blue-600 dark:bg-blue-500 text-white shadow-lg">
+                    Most Popular
+                  </span>
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Monthly</h2>
+                <p className="mt-2 text-gray-500 dark:text-gray-400">Per Month</p>
+                <p className="mt-8 flex flex-wrap items-baseline gap-x-3">
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span>
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">2,500,000</span>
+                </p>
+                <Link
+                  href="/signup"
+                  className="mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 
+                    bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 
+                    group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-800 
+                    group-hover:dark:from-blue-500 group-hover:dark:to-blue-700 
+                    group-hover:text-white hover:shadow-lg active:scale-95"
+                >
+                  Get Started
+                </Link>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Monthly</h2>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">Per Month</p>
-              <p className="mt-8 mb-8">
-                <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR 2,500,000</span>
-              </p>
-              <Link
-                href="/signup"
-                className="block w-full py-3 px-6 rounded-lg text-center font-medium mb-8
-                  bg-blue-50 hover:bg-blue-600 dark:bg-blue-900/50 
-                  text-blue-600 hover:text-white dark:text-blue-400 dark:hover:text-white
-                  transition-all duration-300 transform hover:scale-105
-                  hover:shadow-lg"
-              >
-                Get Started
-              </Link>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="px-8 pb-8">
+                <h3 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wide uppercase mb-4">
                   WHAT'S INCLUDED
                 </h3>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Ad Video Duration: 15 seconds</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Screen Size: 3ft x 6ft</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">High-Traffic Location</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">High-Traffic Location</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">Premium Visibility</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Premium Visibility</p>
                   </li>
-                  <li className="flex items-center">
-                    <svg className="w-5 h-5 text-green-500 dark:text-green-400 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-gray-600 dark:text-gray-300">30+ Screens Network</span>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">30+ Screens Network</p>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Maximum Campaign Impact</p>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-green-500 dark:text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="ml-3 text-base text-gray-600 dark:text-gray-300">Best Value for Money</p>
                   </li>
                 </ul>
               </div>

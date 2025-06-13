@@ -72,7 +72,7 @@ const LocationsSection = () => {
                   </div>
                   <div className="relative h-64 lg:h-full min-h-[300px] rounded-lg overflow-hidden transform transition-transform duration-300 hover:scale-105">
                     <Image
-                      src="/shahrah-e-faisal.jpg"
+                      src="/images/shahrah-e-faisal-optimized.webp"
                       alt="Shahrah-e-Faisal Location"
                       fill
                       className="object-cover rounded-lg"

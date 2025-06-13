@@ -64,8 +64,8 @@ export default function PlansPage() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative rounded-2xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] ${
-                plan.popular ? 'hover:border-2 hover:border-blue-600 dark:hover:border-blue-400' : ''
+              className={`relative rounded-2xl bg-white dark:bg-gray-800 shadow-lg dark:shadow-blue-900/20 transition-all duration-300 group hover:shadow-xl dark:hover:shadow-blue-900/30 hover:scale-[1.02] active:scale-[0.98] ${
+                plan.popular ? 'border-2 border-transparent hover:border-blue-600 dark:hover:border-blue-400' : ''
               }`}
             >
               <div className="p-8">
@@ -78,16 +78,17 @@ export default function PlansPage() {
                 )}
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{plan.name}</h2>
                 <p className="mt-2 text-gray-500 dark:text-gray-400">{plan.duration}</p>
-                <p className="mt-8">
-                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR {plan.price}</span>
+                <p className="mt-8 flex flex-wrap items-baseline gap-x-3">
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR</span>
+                  <span className="text-4xl font-extrabold text-gray-900 dark:text-white">{plan.price}</span>
                 </p>
                 <Link
                   href="/signup"
-                  className={`mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 transform hover:scale-105 
+                  className="mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium transition-all duration-300 
                     bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 
                     group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-800 
                     group-hover:dark:from-blue-500 group-hover:dark:to-blue-700 
-                    group-hover:text-white hover:shadow-lg`}
+                    group-hover:text-white hover:shadow-lg active:scale-95"
                 >
                   Get Started
                 </Link>
