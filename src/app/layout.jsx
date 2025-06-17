@@ -1,8 +1,7 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Providers from './_components/Providers';
-import Navbar from './_components/Navbar';
-import Footer from './_components/Footer';
+import ClientLayout from './_components/ClientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -60,7 +59,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_PK',
-    url: 'https://mtechsolutions.com',
+    url: 'https://mtechsolutions.pk',
     siteName: 'M Tech Solutions',
     title: 'M Tech Solutions - Premium Digital Advertising Network in Pakistan',
     description: 'Transform your brand visibility with M Tech Solutions. We offer premium digital advertising through our network of 30+ strategically placed SMD screens across Pakistan.',
@@ -85,10 +84,10 @@ export const metadata = {
     google: 'your-google-verification-code', // Add your Google verification code
   },
   alternates: {
-    canonical: 'https://mtechsolutions.com',
+    canonical: 'https://mtechsolutions.pk',
     languages: {
-      'en-PK': 'https://mtechsolutions.com',
-      'ur-PK': 'https://mtechsolutions.com/ur',
+      'en-PK': 'https://mtechsolutions.pk',
+      'ur-PK': 'https://mtechsolutions.pk/ur',
     },
   },
   category: 'Digital Advertising',
@@ -106,9 +105,9 @@ export default function RootLayout({ children }) {
       </head>
       <body className={inter.className}>
         <Providers>
-          <Navbar />
-          {children}
-          <Footer />
+          <ClientLayout>
+            {children}
+          </ClientLayout>
         </Providers>
       </body>
     </html>

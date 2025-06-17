@@ -2,15 +2,30 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign in logic here
+    setError('');
+
+    // Check credentials
+    if (email === 'developer@intelik.net' && password === '12345678') {
+      // Set authentication
+      localStorage.setItem('isAuthenticated', 'true');
+      // Trigger storage event for navbar to update
+      window.dispatchEvent(new Event('storage'));
+      // Redirect to dashboard
+      router.push('/dashboard');
+    } else {
+      setError('Invalid email or password');
+    }
   };
 
   return (
@@ -52,6 +67,12 @@ export default function SignIn() {
               </span>
             </div>
           </div>
+
+          {error && (
+            <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

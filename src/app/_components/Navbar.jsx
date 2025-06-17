@@ -2,73 +2,76 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import ThemeToggle from './ThemeToggle';
+import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
+import { FiUser, FiSun, FiMoon } from 'react-icons/fi';
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === '/';
 
-  // Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMenuOpen && !event.target.closest('.mobile-menu') && !event.target.closest('.menu-button')) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isMenuOpen]);
-
-  // Handle scroll effect
-  useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 0);
     };
 
+    const handleAuth = () => {
+      setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
+    };
+
+    handleAuth();
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('storage', handleAuth);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('storage', handleAuth);
+    };
   }, []);
 
-  // Prevent scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMenuOpen]);
-
-  const navBackground = isScrolled
-    ? 'bg-white dark:bg-gray-900'
-    : isHome
-    ? 'bg-transparent'
-    : 'bg-white dark:bg-gray-900';
-
   const textColor = (!isScrolled && isHome)
-    ? 'text-white'
+    ? 'text-white dark:text-white'
     : 'text-gray-900 dark:text-white';
 
+  const buttonClasses = (!isScrolled && isHome)
+    ? 'text-white hover:bg-white/20'
+    : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700';
+
+  const signInButtonClasses = (!isScrolled && isHome)
+    ? 'px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-medium transition-all duration-200'
+    : 'px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 font-medium transition-all duration-200';
+
+  const signUpButtonClasses = (!isScrolled && isHome)
+    ? 'px-4 py-2 rounded-lg bg-white text-gray-900 hover:bg-gray-100 font-medium transition-all duration-200'
+    : 'px-4 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 font-medium transition-all duration-200';
+
+  const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated');
+    window.location.href = '/';
+  };
+
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${navBackground}`}>
+    <header className={`fixed w-full z-50 transition-all duration-300 ${
+      isScrolled
+        ? 'bg-white dark:bg-gray-900 shadow-lg'
+        : isHome
+        ? 'bg-transparent'
+        : 'bg-white dark:bg-gray-900'
+    }`}>
       <nav className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <Image 
-              src="/images/logo-icon.png" 
-              alt="M Tech Solutions Logo" 
-              width={40} 
-              height={40} 
+            <Image
+              src="/images/logo-icon.png"
+              alt="M Tech Solutions Logo"
+              width={40}
+              height={40}
               className="w-10 h-10"
             />
             <span className={`text-xl font-bold ${textColor}`}>
@@ -80,190 +83,210 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-6">
             <Link 
               href="/" 
-              className={`${
-                !isScrolled && isHome
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
-              } px-3 py-2 rounded-md transition-all duration-200 hover:bg-white/10`}
+              className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200`}
             >
               Home
             </Link>
             <Link 
               href="/plans" 
-              className={`${
-                !isScrolled && isHome
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
-              } px-3 py-2 rounded-md transition-all duration-200 hover:bg-white/10`}
+              className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200`}
             >
               Plans
             </Link>
             <Link 
               href="/locations" 
-              className={`${
-                !isScrolled && isHome
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
-              } px-3 py-2 rounded-md transition-all duration-200 hover:bg-white/10`}
+              className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200`}
             >
               Locations
             </Link>
             <Link 
               href="/about" 
-              className={`${
-                !isScrolled && isHome
-                  ? 'text-white/90 hover:text-white'
-                  : 'text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400'
-              } px-3 py-2 rounded-md transition-all duration-200 hover:bg-white/10`}
+              className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200`}
             >
               About
             </Link>
-            <Link
-              href="/signin"
-              className={`${
-                !isScrolled && isHome
-                  ? 'text-white border-white hover:bg-white/10'
-                  : 'text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30'
-              } px-4 py-2 rounded-md border transition-all duration-200`}
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/signup"
-              className={`${
-                !isScrolled && isHome
-                  ? 'bg-white text-blue-900 hover:bg-white/90'
-                  : 'bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 text-white'
-              } hover:opacity-90 px-4 py-2 rounded-md transition-all duration-200 transform hover:scale-105 hover:shadow-lg`}
-            >
-              Sign Up
-            </Link>
-            <div className="ml-4">
-              <ThemeToggle isHome={isHome} isScrolled={isScrolled} />
+
+            <div className="flex items-center space-x-4">
+              {mounted && (
+                <button 
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className={`p-2 rounded-lg transition-all duration-200 ${buttonClasses}`}
+                  aria-label="Toggle theme"
+                >
+                  {theme === 'dark' ? (
+                    <FiSun className="w-5 h-5" />
+                  ) : (
+                    <FiMoon className="w-5 h-5" />
+                  )}
+                </button>
+              )}
+              
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className={signUpButtonClasses}
+                  >
+                    Dashboard
+                  </Link>
+                  <div className="relative group">
+                    <button className={`p-2 rounded-lg transition-all duration-200 ${buttonClasses}`}>
+                      <FiUser className="w-5 h-5" />
+                    </button>
+                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                      <Link
+                        href="/profile"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Profile
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    className={signInButtonClasses}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className={signUpButtonClasses}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle isHome={isHome} isScrolled={isScrolled} />
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className={`p-2 rounded-lg transition-all duration-200 ${buttonClasses}`}
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <FiSun className="w-5 h-5" />
+                ) : (
+                  <FiMoon className="w-5 h-5" />
+                )}
+              </button>
+            )}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`menu-button p-2 rounded-lg ${
-                !isScrolled && isHome
-                  ? 'text-white hover:bg-white/10'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
-              } transition-all duration-200`}
+              className={`p-2 rounded-lg transition-all duration-200 ${buttonClasses}`}
             >
               <svg
                 className="h-6 w-6"
                 fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  <path d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  <path d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setIsMenuOpen(false)}
-        />
-      )}
-
-      {/* Mobile Menu - Side Drawer */}
-      <div 
-        className={`fixed inset-y-0 right-0 transform md:hidden w-72 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-xl transition-transform duration-300 ease-out z-50 mobile-menu ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="h-full flex flex-col">
-          <div className="px-6 py-6 border-b border-gray-200 dark:border-gray-800">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Image
-                  src="/images/logo-icon.png"
-                  alt="M Tech Solutions Logo"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
-                <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
-                  M Tech Solutions
-                </span>
-              </div>
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 active:scale-95 transition-all duration-200"
-              >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div className="flex-1 overflow-y-auto py-6 px-6">
-            <div className="flex flex-col space-y-2">
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4">
+            <div className="flex flex-col space-y-4">
               <Link
                 href="/"
+                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 active:scale-[0.98] transition-all duration-200"
               >
                 Home
               </Link>
               <Link
                 href="/plans"
+                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 active:scale-[0.98] transition-all duration-200"
               >
                 Plans
               </Link>
               <Link
                 href="/locations"
+                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 active:scale-[0.98] transition-all duration-200"
               >
                 Locations
               </Link>
               <Link
                 href="/about"
+                className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 active:scale-[0.98] transition-all duration-200"
               >
                 About
               </Link>
+              
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href="/dashboard"
+                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/profile"
+                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="text-left text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/signin"
+                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
           </div>
-
-          <div className="p-6 border-t border-gray-200 dark:border-gray-800">
-            <div className="flex flex-col space-y-3">
-              <Link
-                href="/signin"
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full px-4 py-3 text-center rounded-lg border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 active:scale-[0.98] transition-all duration-200"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/signup"
-                onClick={() => setIsMenuOpen(false)}
-                className="w-full px-4 py-3 text-center rounded-lg bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-500 dark:to-blue-700 text-white hover:opacity-90 active:scale-[0.98] transition-all duration-200"
-              >
-                Sign Up
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
+        )}
+      </nav>
     </header>
   );
 };

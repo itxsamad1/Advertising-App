@@ -76,10 +76,10 @@ export default function Contact() {
                       Email
                     </p>
                     <a
-                      href="mailto:info@mtechsolutions.com"
+                      href="mailto:info@mtechsolutions.pk"
                       className="text-base text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     >
-                      info@mtechsolutions.com
+                      info@mtechsolutions.pk
                     </a>
                   </div>
                 </div>
