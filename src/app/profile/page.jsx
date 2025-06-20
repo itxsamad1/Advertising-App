@@ -43,7 +43,7 @@ export default function ProfilePage() {
           <div className="pt-16 px-8 pb-8">
             <div className="flex justify-between items-start">
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dev @ Intelik</h1>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dev @ Intelik Immutable Intelligence</h1>
                 <p className="text-gray-600 dark:text-gray-400">Business Account</p>
               </div>
               <button className="flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
