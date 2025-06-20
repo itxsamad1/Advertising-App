@@ -58,13 +58,13 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <div className="bg-white py-12 sm:py-16 lg:py-20">
+    <div className="bg-white dark:bg-gray-900 py-12 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
             Why Choose Our SMD Screens?
           </h2>
-          <p className="mt-4 text-xl text-gray-600">
+          <p className="mt-4 text-xl text-gray-600 dark:text-gray-300">
             Discover the advantages of digital outdoor advertising with our cutting-edge SMD screens
           </p>
         </div>
@@ -73,14 +73,14 @@ const FeaturesSection = () => {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
               <div key={feature.title} className="relative group">
-                <div className="h-full flex flex-col bg-white rounded-2xl border border-gray-200 p-8 hover:border-blue-600 transition-colors duration-300">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 text-blue-600 mb-6">
+                <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-8 hover:border-blue-600 dark:hover:border-blue-500 transition-colors duration-300">
+                  <div className="flex items-center justify-center h-12 w-12 rounded-md bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-6">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                     {feature.title}
                   </h3>
-                  <p className="mt-4 text-base text-gray-500 flex-grow">
+                  <p className="mt-4 text-base text-gray-500 dark:text-gray-400 flex-grow">
                     {feature.description}
                   </p>
                 </div>

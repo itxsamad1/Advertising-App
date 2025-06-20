@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Providers from './_components/Providers';
 import ClientLayout from './_components/ClientLayout';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -10,19 +9,19 @@ export const viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f172a' }
+  ]
 };
 
 export const metadata = {
   title: 'M Tech Solutions - Premium SMD Screen Advertising',
   description: 'Transform your brand with premium SMD screen advertising solutions in prime locations across Karachi.',
+  manifest: '/manifest.json',
   icons: {
-    icon: '/images/favicon.png',
-    shortcut: '/images/favicon.png',
-    apple: '/images/favicon.png',
-    other: {
-      rel: 'apple-touch-icon-precomposed',
-      url: '/images/favicon.png',
-    },
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico'
   },
   keywords: [
     'Digital Advertising',
@@ -41,7 +40,6 @@ export const metadata = {
     'Strategic Advertising Locations',
     'Brand Visibility Solutions'
   ],
-  manifest: '/manifest.json',
   authors: [{ name: 'M Tech Solutions' }],
   creator: 'M Tech Solutions',
   publisher: 'M Tech Solutions',
@@ -97,18 +95,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className={inter.className}>
-        <Providers>
-          <ClientLayout>
-            {children}
-          </ClientLayout>
-        </Providers>
+      <body className={`${inter.className} antialiased`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

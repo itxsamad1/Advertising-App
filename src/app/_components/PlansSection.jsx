@@ -54,7 +54,7 @@ const PlansSection = () => {
   const [hoveredPlan, setHoveredPlan] = useState(null);
 
   return (
-    <div className="py-16 bg-gradient-to-b from-white to-blue-50">
+    <div className="py-16 bg-gradient-to-b from-white dark:from-gray-900 to-blue-50 dark:to-gray-800">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,11 +63,11 @@ const PlansSection = () => {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <h2 className="text-base text-blue-600 font-semibold tracking-wide uppercase">Pricing Plans</h2>
-          <p className="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl lg:text-5xl">
+          <h2 className="text-base text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">Pricing Plans</h2>
+          <p className="mt-2 text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl lg:text-5xl">
             Choose Your Perfect Plan
           </p>
-          <p className="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+          <p className="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto">
             Select the perfect advertising duration for your campaign. All plans include premium visibility on our network of 30+ strategically placed SMD screens.
           </p>
         </motion.div>
@@ -82,8 +82,8 @@ const PlansSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <motion.div
-                className={`rounded-2xl shadow-lg bg-white p-8 relative cursor-pointer transition-all duration-300 ${
-                  selectedPlan === plan.name ? 'ring-2 ring-blue-600 transform scale-105' : ''
+                className={`rounded-2xl shadow-lg bg-white dark:bg-gray-800 p-8 relative cursor-pointer transition-all duration-300 ${
+                  selectedPlan === plan.name ? 'ring-2 ring-blue-600 dark:ring-blue-500 transform scale-105' : ''
                 }`}
                 whileHover={{ 
                   scale: 1.05,
@@ -99,16 +99,16 @@ const PlansSection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     className="absolute -top-4 right-8"
                   >
-                    <span className="inline-flex items-center px-4 py-1 rounded-full text-sm font-semibold bg-blue-600 text-white">
+                    <span className="inline-flex items-center px-4 py-1 rounded-full text-sm font-semibold bg-blue-600 dark:bg-blue-500 text-white">
                       Most Popular
                     </span>
                   </motion.div>
                 )}
                 <div>
-                  <h3 className="text-2xl font-semibold text-gray-900">{plan.name}</h3>
-                  <p className="mt-4 text-gray-500">{plan.duration}</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">{plan.name}</h3>
+                  <p className="mt-4 text-gray-500 dark:text-gray-400">{plan.duration}</p>
                   <p className="mt-8">
-                    <span className="text-4xl font-extrabold text-gray-900">PKR {plan.price}</span>
+                    <span className="text-4xl font-extrabold text-gray-900 dark:text-white">PKR {plan.price}</span>
                   </p>
 
                   <motion.div
@@ -119,8 +119,8 @@ const PlansSection = () => {
                       href={`/signup?plan=${plan.name}`}
                       className={`mt-8 block w-full py-3 px-6 rounded-lg text-center font-medium ${
                         selectedPlan === plan.name || hoveredPlan === plan.name
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                          ? 'bg-blue-600 dark:bg-blue-500 text-white'
+                          : 'bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-800'
                       } transition-colors duration-200`}
                     >
                       {selectedPlan === plan.name ? 'Selected Plan' : 'Get Started'}
@@ -128,7 +128,7 @@ const PlansSection = () => {
                   </motion.div>
 
                   <div className="mt-8">
-                    <h4 className="text-sm font-semibold text-gray-900 tracking-wide uppercase">
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white tracking-wide uppercase">
                       What's included
                     </h4>
                     <ul className="mt-4 space-y-4">
@@ -142,7 +142,7 @@ const PlansSection = () => {
                         >
                           <div className="flex-shrink-0">
                             <svg
-                              className="h-6 w-6 text-green-500"
+                              className="h-6 w-6 text-green-500 dark:text-green-400"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -155,7 +155,7 @@ const PlansSection = () => {
                               />
                             </svg>
                           </div>
-                          <p className="ml-3 text-base text-gray-500">{feature}</p>
+                          <p className="ml-3 text-base text-gray-500 dark:text-gray-400">{feature}</p>
                         </motion.li>
                       ))}
                     </ul>
@@ -173,9 +173,9 @@ const PlansSection = () => {
           transition={{ duration: 0.5 }}
           className="mt-12 text-center"
         >
-          <p className="text-lg text-gray-500">
+          <p className="text-lg text-gray-500 dark:text-gray-400">
             Need a custom plan?{' '}
-            <Link href="/contact" className="text-blue-600 font-medium hover:text-blue-500">
+            <Link href="/contact" className="text-blue-600 dark:text-blue-400 font-medium hover:text-blue-500 dark:hover:text-blue-300">
               Contact us
             </Link>
           </p>
