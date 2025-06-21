@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -16,26 +16,38 @@ const Navbar = () => {
   const pathname = usePathname();
   const isHome = pathname === '/';
 
+  // Memoize scroll handler
+  const handleScroll = useCallback(() => {
+    const scrolled = window.scrollY > 0;
+    if (scrolled !== isScrolled) {
+      setIsScrolled(scrolled);
+    }
+  }, [isScrolled]);
+
+  // Memoize auth handler
+  const handleAuth = useCallback(() => {
+    const auth = localStorage.getItem('isAuthenticated') === 'true';
+    if (auth !== isAuthenticated) {
+      setIsAuthenticated(auth);
+    }
+  }, [isAuthenticated]);
+
   useEffect(() => {
     setMounted(true);
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
+    handleScroll(); // Initial check
+    handleAuth(); // Initial check
 
-    const handleAuth = () => {
-      setIsAuthenticated(localStorage.getItem('isAuthenticated') === 'true');
-    };
-
-    handleAuth();
-    window.addEventListener('scroll', handleScroll);
+    // Use passive listeners for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('storage', handleAuth);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('storage', handleAuth);
     };
-  }, []);
+  }, [handleScroll, handleAuth]);
 
+  // Memoize style computations
   const textColor = (!isScrolled && isHome)
     ? 'text-white dark:text-white'
     : 'text-gray-900 dark:text-white';
@@ -69,6 +81,10 @@ const Navbar = () => {
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  if (!mounted) {
+    return null; // Prevent flash of unstyled content
+  }
 
   return (
     <header className={`fixed w-full z-50 transition-all duration-300 ${

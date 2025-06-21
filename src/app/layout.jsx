@@ -20,8 +20,12 @@ export const metadata = {
   description: 'Transform your brand with premium SMD screen advertising solutions in prime locations across Karachi.',
   manifest: '/manifest.json',
   icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon.ico'
+    icon: [
+      { url: '/images/logo-icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/logo-192x192.png', sizes: '192x192', type: 'image/png' }
+    ],
+    shortcut: '/images/logo-icon.png',
+    apple: '/images/logo-192x192.png'
   },
   keywords: [
     'Digital Advertising',
@@ -63,7 +67,7 @@ export const metadata = {
     description: 'Transform your brand visibility with M Tech Solutions. We offer premium digital advertising through our network of 30+ strategically placed SMD screens across Pakistan.',
     images: [
       {
-        url: '/og-image.jpg', // Make sure this image exists in your public folder
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'M Tech Solutions - Digital Advertising Network',
@@ -74,12 +78,12 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'M Tech Solutions - Digital Advertising Solutions',
     description: 'Premium digital advertising network with 30+ SMD screens across Pakistan. Transform your brand visibility with M Tech Solutions.',
-    images: ['/twitter-image.jpg'], // Make sure this image exists in your public folder
+    images: ['/twitter-image.jpg'],
     creator: '@mtechsolutions',
     site: '@mtechsolutions',
   },
   verification: {
-    google: 'your-google-verification-code', // Add your Google verification code
+    google: 'your-google-verification-code',
   },
   alternates: {
     canonical: 'https://mtechsolutions.pk',
