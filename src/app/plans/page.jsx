@@ -4,7 +4,7 @@ import Link from 'next/link';
 const plans = [
   {
     name: 'Weekly',
-    price: '625,000',
+    price: '500,000',
     duration: 'Per Week',
     features: [
       'Ad Video Duration: 15 seconds',
@@ -17,7 +17,7 @@ const plans = [
   },
   {
     name: 'Fortnight',
-    price: '1,250,000',
+    price: '800,000',
     duration: 'Fifteen Days',
     features: [
       'Ad Video Duration: 15 seconds',
@@ -31,7 +31,7 @@ const plans = [
   },
   {
     name: 'Monthly',
-    price: '2,500,000',
+    price: '1,500,000',
     duration: 'Per Month',
     popular: true,
     features: [
