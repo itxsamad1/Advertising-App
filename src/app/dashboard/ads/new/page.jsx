@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { FiUpload, FiCreditCard, FiInfo, FiArrowLeft } from 'react-icons/fi';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 
 const STEPS = {
   BASIC_INFO: 0,
@@ -58,6 +59,7 @@ const PLANS = [
 
 export default function NewAdPage() {
   const router = useRouter();
+  const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(STEPS.BASIC_INFO);
   const [formData, setFormData] = useState({
     campaignName: '',
@@ -400,7 +402,7 @@ export default function NewAdPage() {
                 />
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                   <img 
-                    src="/Visa_Brandmark_Blue_RGB_2021.png" 
+                    src={theme === 'dark' ? "/Visa_Brandmark_White_RGB_2021.png" : "/Visa_Brandmark_Blue_RGB_2021.png"}
                     alt="Visa" 
                     className="h-5 w-auto object-contain"
                   />

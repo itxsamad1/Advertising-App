@@ -1,5 +1,6 @@
 'use client';
 import { ThemeProvider } from 'next-themes';
+import { AuthProvider } from './AuthContext';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { AnimatePresence } from 'framer-motion';
@@ -27,12 +28,14 @@ export default function ClientLayout({ children }) {
   }
 
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-      <Navbar />
-      <AnimatePresence mode="wait">
-        <main key={pathname}>{children}</main>
-      </AnimatePresence>
-      {!isDashboard && <Footer />}
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <AuthProvider>
+        <Navbar />
+        <AnimatePresence mode="wait">
+          <main key={pathname}>{children}</main>
+        </AnimatePresence>
+        {!isDashboard && <Footer />}
+      </AuthProvider>
     </ThemeProvider>
   );
 } 

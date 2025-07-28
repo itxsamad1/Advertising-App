@@ -2,28 +2,22 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useAuth } from '../_components/AuthContext';
+import { FiAlertCircle } from 'react-icons/fi';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
-    // Check credentials
-    if (email === 'developer@intelik.net' && password === '12345678') {
-      // Set authentication
-      localStorage.setItem('isAuthenticated', 'true');
-      // Trigger storage event for navbar to update
-      window.dispatchEvent(new Event('storage'));
-      // Redirect to dashboard
-      router.push('/dashboard');
-    } else {
+    const success = login(email, password);
+    if (!success) {
       setError('Invalid email or password');
     }
   };
@@ -69,8 +63,9 @@ export default function SignIn() {
           </div>
 
           {error && (
-            <div className="mb-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm">
-              {error}
+            <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center gap-3">
+              <FiAlertCircle className="w-5 h-5 text-red-500 dark:text-red-400" />
+              <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
             </div>
           )}
 

@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { useAuth } from '../_components/AuthContext';
+import { FiAlertCircle } from 'react-icons/fi';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -9,10 +11,27 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeToTerms, setAgreeToTerms] = useState(false);
+  const [error, setError] = useState('');
+  const { signup } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle sign up logic here
+    setError('');
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters long');
+      return;
+    }
+
+    const success = signup(email, password, name);
+    if (!success) {
+      setError('Email already exists');
+    }
   };
 
   return (
@@ -30,6 +49,13 @@ export default function SignUp() {
               </Link>
             </p>
           </div>
+
+          {error && (
+            <div className="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 flex items-center gap-3">
+              <FiAlertCircle className="w-5 h-5 text-red-500 dark:text-red-400" />
+              <p className="text-red-600 dark:text-red-400 text-sm">{error}</p>
+            </div>
+          )}
 
           <button
             className="w-full flex items-center justify-center gap-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors duration-200 mb-6"
@@ -141,7 +167,7 @@ export default function SignUp() {
               type="submit"
               className="w-full bg-blue-600 dark:bg-blue-500 text-white rounded-lg px-4 py-3 font-medium hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:ring-offset-2 transition-colors duration-200"
             >
-              Create account
+              Create Account
             </button>
           </form>
         </div>

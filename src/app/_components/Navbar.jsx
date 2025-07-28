@@ -6,15 +6,23 @@ import { useTheme } from 'next-themes';
 import { usePathname } from 'next/navigation';
 import { FiUser, FiSun, FiMoon, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from './AuthContext';
+
+const navigationLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Plans', href: '/plans' },
+  { name: 'Locations', href: '/locations' },
+  { name: 'About', href: '/about' },
+];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const isHome = pathname === '/';
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Memoize scroll handler
   const handleScroll = useCallback(() => {
@@ -24,28 +32,17 @@ const Navbar = () => {
     }
   }, [isScrolled]);
 
-  // Memoize auth handler
-  const handleAuth = useCallback(() => {
-    const auth = localStorage.getItem('isAuthenticated') === 'true';
-    if (auth !== isAuthenticated) {
-      setIsAuthenticated(auth);
-    }
-  }, [isAuthenticated]);
-
   useEffect(() => {
     setMounted(true);
     handleScroll(); // Initial check
-    handleAuth(); // Initial check
 
     // Use passive listeners for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('storage', handleAuth);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('storage', handleAuth);
     };
-  }, [handleScroll, handleAuth]);
+  }, [handleScroll]);
 
   // Memoize style computations
   const textColor = (!isScrolled && isHome)
@@ -64,11 +61,6 @@ const Navbar = () => {
     ? 'px-4 py-2 rounded-lg bg-white text-gray-900 hover:bg-gray-100 font-medium transition-all duration-200 hover:scale-105'
     : 'px-4 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 font-medium transition-all duration-200 hover:scale-105';
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    window.location.href = '/';
-  };
-
   const menuItemVariants = {
     hidden: { opacity: 0, y: -10 },
     visible: { opacity: 1, y: 0 }
@@ -82,259 +74,212 @@ const Navbar = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const getDashboardLink = () => {
+    if (!user) return '/dashboard';
+    return `/dashboard/${user.role}`;
+  };
+
   if (!mounted) {
     return null; // Prevent flash of unstyled content
   }
 
   return (
-    <header className={`fixed w-full z-50 transition-all duration-300 ${
-      isScrolled
-        ? 'bg-white dark:bg-gray-900 shadow-lg'
-        : isHome
-        ? 'bg-transparent'
-        : 'bg-white dark:bg-gray-900'
-    }`}>
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Link href="/" className="flex items-center space-x-2">
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+        isScrolled || !isHome
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-sm'
+          : ''
+      }`}
+    >
+      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center">
               <Image
                 src="/images/logo-icon.png"
-                alt="M Tech Solutions Logo"
-                width={40}
-                height={40}
-                className="w-10 h-10"
+                alt="Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
               />
-              <span className={`text-xl font-bold ${textColor}`}>
+              <span
+                className={`ml-2 text-lg font-semibold ${textColor}`}
+              >
                 M Tech Solutions
               </span>
             </Link>
-          </motion.div>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex items-center space-x-6"
-            >
-              <Link 
-                href="/" 
-                className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105`}
-              >
-                Home
-              </Link>
-              <Link 
-                href="/plans" 
-                className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105`}
-              >
-                Plans
-              </Link>
-              <Link 
-                href="/locations" 
-                className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105`}
-              >
-                Locations
-              </Link>
-              <Link 
-                href="/about" 
-                className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105`}
-              >
-                About
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex items-center space-x-4"
-            >
-              {mounted && (
-                <motion.button 
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2 }}
-                  onClick={toggleTheme}
-                  className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900`}
-                  aria-label="Toggle theme"
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center ml-8 space-x-6">
+              {navigationLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`${buttonClasses} px-3 py-2 rounded-lg transition-all duration-200 hover:scale-105`}
                 >
-                  {theme === 'dark' ? (
-                    <FiSun className="w-5 h-5" />
-                  ) : (
-                    <FiMoon className="w-5 h-5" />
-                  )}
-                </motion.button>
-              )}
-              
-              {isAuthenticated ? (
-                <div className="flex items-center space-x-4">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link
-                      href="/dashboard"
-                      className={`px-4 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white font-medium transition-all duration-200 hover:bg-blue-700 dark:hover:bg-blue-600`}
-                    >
-                      Dashboard
-                    </Link>
-                  </motion.div>
-                  <div className="relative group">
-                    <motion.button
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                      className={`p-2 rounded-lg transition-all duration-200 bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 dark:hover:bg-blue-500/30`}
-                    >
-                      <FiUser className="w-5 h-5" />
-                    </motion.button>
-                    <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <Link
-                        href="/profile"
-                        className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                      >
-                        <FiUser className="w-4 h-4 mr-2" />
-                        Profile
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
-                      >
-                        <FiLogOut className="w-4 h-4 mr-2" />
-                        Logout
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link
-                      href="/signin"
-                      className={signInButtonClasses}
-                    >
-                      Sign In
-                    </Link>
-                  </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Link
-                      href="/signup"
-                      className={signUpButtonClasses}
-                    >
-                      Sign Up
-                    </Link>
-                  </motion.div>
-                </div>
-              )}
-            </motion.div>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            {mounted && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.2 }}
-                onClick={toggleTheme}
-                className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900`}
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <FiSun className="w-5 h-5" />
-                ) : (
-                  <FiMoon className="w-5 h-5" />
-                )}
-              </motion.button>
-            )}
-            <motion.button
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.2 }}
-              onClick={toggleMenu}
-              className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900`}
-              aria-label="Toggle menu"
+          <div className="hidden md:flex md:items-center md:space-x-2">
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg transition-colors duration-200 ${buttonClasses}`}
             >
-              {isMenuOpen ? <FiX className="w-5 h-5" /> : <FiMenu className="w-5 h-5" />}
-            </motion.button>
+              {theme === 'dark' ? (
+                <FiSun className="w-5 h-5" />
+              ) : (
+                <FiMoon className="w-5 h-5" />
+              )}
+            </button>
+
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href={getDashboardLink()}
+                    className={`px-4 py-2 rounded-lg bg-blue-600 dark:bg-blue-500 text-white font-medium transition-all duration-200 hover:bg-blue-700 dark:hover:bg-blue-600`}
+                  >
+                    Dashboard
+                  </Link>
+                </motion.div>
+                <div className="relative group">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`p-2 rounded-lg transition-all duration-200 bg-blue-500/10 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 dark:hover:bg-blue-500/30`}
+                  >
+                    <FiUser className="w-5 h-5" />
+                  </motion.button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
+                      Signed in as<br />
+                      <span className="font-medium text-gray-900 dark:text-white">
+                        {user?.email}
+                      </span>
+                    </div>
+                    <Link
+                      href="/profile"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      <FiUser className="w-4 h-4 mr-2" />
+                      Profile
+                    </Link>
+                    <button
+                      onClick={logout}
+                      className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                    >
+                      <FiLogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/signin"
+                    className={signInButtonClasses}
+                  >
+                    Sign In
+                  </Link>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link
+                    href="/signup"
+                    className={signUpButtonClasses}
+                  >
+                    Sign Up
+                  </Link>
+                </motion.div>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className={`p-2 rounded-lg transition-colors duration-200 ${buttonClasses}`}
+            >
+              {isMenuOpen ? (
+                <FiX className="w-6 h-6" />
+              ) : (
+                <FiMenu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="md:hidden mt-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 overflow-hidden"
+              transition={{ duration: 0.2 }}
+              className="md:hidden"
             >
               <motion.div
                 initial="hidden"
                 animate="visible"
+                exit="hidden"
                 variants={{
                   visible: {
                     transition: {
-                      staggerChildren: 0.1
-                    }
-                  }
+                      staggerChildren: 0.05,
+                    },
+                  },
                 }}
-                className="flex flex-col space-y-4"
+                className="px-2 pt-2 pb-3 space-y-1"
               >
+                {/* Mobile Navigation Links */}
+                {navigationLinks.map((link) => (
+                  <motion.div key={link.name} variants={menuItemVariants}>
+                    <Link
+                      href={link.href}
+                      className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  </motion.div>
+                ))}
+
                 <motion.div variants={menuItemVariants}>
-                  <Link
-                    href="/"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
+                  <button
+                    onClick={toggleTheme}
+                    className="w-full text-left px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
                   >
-                    Home
-                  </Link>
+                    <div className="flex items-center">
+                      {theme === 'dark' ? (
+                        <FiSun className="w-4 h-4 mr-2" />
+                      ) : (
+                        <FiMoon className="w-4 h-4 mr-2" />
+                      )}
+                      {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </div>
+                  </button>
                 </motion.div>
-                <motion.div variants={menuItemVariants}>
-                  <Link
-                    href="/plans"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Plans
-                  </Link>
-                </motion.div>
-                <motion.div variants={menuItemVariants}>
-                  <Link
-                    href="/locations"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Locations
-                  </Link>
-                </motion.div>
-                <motion.div variants={menuItemVariants}>
-                  <Link
-                    href="/about"
-                    className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    About
-                  </Link>
-                </motion.div>
-                
+
                 {isAuthenticated ? (
                   <>
                     <motion.div variants={menuItemVariants}>
                       <Link
-                        href="/dashboard"
+                        href={getDashboardLink()}
                         className="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -356,7 +301,7 @@ const Navbar = () => {
                     <motion.div variants={menuItemVariants}>
                       <button
                         onClick={() => {
-                          handleLogout();
+                          logout();
                           setIsMenuOpen(false);
                         }}
                         className="w-full px-4 py-2 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors duration-200 flex items-center"
